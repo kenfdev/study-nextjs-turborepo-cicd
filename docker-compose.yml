@@ -1,6 +1,7 @@
 version: '3'
 services:
   web:
+    # image: ghcr.io/kenfdev/study-nextjs-turborepo-cicd:1.0.0
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
@@ -8,3 +9,4 @@ services:
       - "3333:3333"
     environment:
       - PORT=3333
+      - NEXT_PUBLIC_API_URL=http://localhost:1234/api

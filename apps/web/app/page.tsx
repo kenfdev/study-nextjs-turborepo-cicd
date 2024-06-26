@@ -3,6 +3,7 @@ import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -52,6 +53,11 @@ export default function Home() {
         >
           Open alert
         </Button>
+        <div>
+          <p className={styles.description}>
+            The API URL is: <code>{apiUrl}</code>
+          </p>
+        </div>
       </main>
       <footer className={styles.footer}>
         <a
