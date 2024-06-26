@@ -20,6 +20,10 @@ RUN turbo prune web --docker
  
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
+
+# Set placeholder environment variables in Dockerfile
+ARG NEXT_PUBLIC_API_URL=PLACEHOLDER_NEXT_PUBLIC_API_URL
+
 WORKDIR /app
  
 # First install the dependencies (as they change less often)
@@ -49,5 +53,6 @@ COPY --from=installer /app/apps/web/package.json .
 COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/scripts ./apps/web/scripts
  
-CMD node apps/web/server.js
+CMD sh apps/web/scripts/start.sh
